@@ -108,7 +108,7 @@ public class ITTeamSenden4 extends AppCompatActivity
 
                     pw.println("ITTeamHolen");
                     pw.flush();
-                    pw.println("select * from fehlermeldungen where raum=\""+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"");
+                    pw.println("select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";");
                     pw.flush();
 
                     int eintraegeZahl = Integer.parseInt(br.readLine());

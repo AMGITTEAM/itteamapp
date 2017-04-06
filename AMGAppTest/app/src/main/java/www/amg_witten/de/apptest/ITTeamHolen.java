@@ -45,6 +45,29 @@ public class ITTeamHolen extends AppCompatActivity
     MenuItem offen;
     MenuItem inBearbeitung;
     MenuItem fertig;
+    MenuItem gebH;
+    MenuItem gebA;
+    MenuItem gebN;
+    MenuItem et2;
+    MenuItem et1;
+    MenuItem et0;
+    MenuItem etZ;
+    MenuItem etU;
+    MenuItem raum01;
+    MenuItem raum02;
+    MenuItem raum03;
+    MenuItem raum04;
+    MenuItem raum05;
+    MenuItem raum06;
+    MenuItem raum07;
+    MenuItem raum08;
+    MenuItem raum09;
+    MenuItem raum10;
+    MenuItem raum11;
+    MenuItem raum12;
+    MenuItem raum13;
+    MenuItem raum14;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +95,28 @@ public class ITTeamHolen extends AppCompatActivity
         offen=menu.findItem(R.id.Offen);
         inBearbeitung=menu.findItem(R.id.InBearbeitung);
         fertig=menu.findItem(R.id.Fertig);
+        gebH=menu.findItem(R.id.FilterGebaeudeH);
+        gebA=menu.findItem(R.id.FilterGebaeudeA);
+        gebN=menu.findItem(R.id.FilterGebaeudeN);
+        et2=menu.findItem(R.id.FilterEtage2);
+        et1=menu.findItem(R.id.FilterEtage1);
+        et0=menu.findItem(R.id.FilterEtage0);
+        etZ=menu.findItem(R.id.FilterEtageZ);
+        etU=menu.findItem(R.id.FilterEtageU);
+        raum01=menu.findItem(R.id.FilterRaum01);
+        raum02=menu.findItem(R.id.FilterRaum02);
+        raum03=menu.findItem(R.id.FilterRaum03);
+        raum04=menu.findItem(R.id.FilterRaum04);
+        raum05=menu.findItem(R.id.FilterRaum05);
+        raum06=menu.findItem(R.id.FilterRaum06);
+        raum07=menu.findItem(R.id.FilterRaum07);
+        raum08=menu.findItem(R.id.FilterRaum08);
+        raum09=menu.findItem(R.id.FilterRaum09);
+        raum10=menu.findItem(R.id.FilterRaum10);
+        raum11=menu.findItem(R.id.FilterRaum11);
+        raum12=menu.findItem(R.id.FilterRaum12);
+        raum13=menu.findItem(R.id.FilterRaum13);
+        raum14=menu.findItem(R.id.FilterRaum14);
 
         offen.setChecked(true);
 
@@ -81,38 +126,25 @@ public class ITTeamHolen extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.Offen:
-                if(item.isChecked()){
-                    item.setChecked(false);
-                    ITTeamHolenAnzeigen(AnfrageGenerieren());
-                }
-                else {
-                    item.setChecked(true);
-                    ITTeamHolenAnzeigen(AnfrageGenerieren());
-                }
+            case R.id.FilterEtage:
                 return true;
-            case R.id.InBearbeitung:
-                if(item.isChecked()){
-                    item.setChecked(false);
-                    ITTeamHolenAnzeigen(AnfrageGenerieren());
-                }
-                else {
-                    item.setChecked(true);
-                    ITTeamHolenAnzeigen(AnfrageGenerieren());
-                }
+            case R.id.FilterGebaeude:
                 return true;
-            case R.id.Fertig:
-                if(item.isChecked()){
-                    item.setChecked(false);
-                    ITTeamHolenAnzeigen(AnfrageGenerieren());
-                }
-                else {
-                    item.setChecked(true);
-                    ITTeamHolenAnzeigen(AnfrageGenerieren());
-                }
+            case R.id.FilterStatus:
                 return true;
+            case R.id.FilterRaum:
+                return true;
+
             default:
-                return super.onOptionsItemSelected(item);
+                if(item.isChecked()){
+                    item.setChecked(false);
+                    ITTeamHolenAnzeigen(AnfrageGenerieren());
+                }
+                else {
+                    item.setChecked(true);
+                    ITTeamHolenAnzeigen(AnfrageGenerieren());
+                }
+                return true;
         }
     }
 
@@ -120,7 +152,6 @@ public class ITTeamHolen extends AppCompatActivity
         String anfrage = "select * from fehlermeldungen where ";
         boolean etwMarkiert = false;
 
-        System.out.println(offen);
         if(offen.isChecked()){
             if(etwMarkiert){
                 anfrage+=" OR ";
@@ -141,6 +172,160 @@ public class ITTeamHolen extends AppCompatActivity
             }
             etwMarkiert=true;
             anfrage+="status=\"Fertig\"";
+        }
+        if(gebH.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="gebaeude=\"H\"";
+        }
+        if(gebA.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="gebaeude=\"A\"";
+        }
+        if(gebN.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="gebaeude=\"N\"";
+        }
+        if(et2.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="etage=\"2\"";
+        }
+        if(et1.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="etage=\"1\"";
+        }
+        if(et0.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="etage=\"0\"";
+        }
+        if(etZ.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="etage=\"Z\"";
+        }
+        if(etU.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="etage=\"U\"";
+        }
+        if(raum01.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"01\"";
+        }
+        if(raum02.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"02\"";
+        }
+        if(raum03.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"03\"";
+        }
+        if(raum04.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"04\"";
+        }
+        if(raum05.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"05\"";
+        }
+        if(raum06.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"06\"";
+        }
+        if(raum07.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"07\"";
+        }
+        if(raum08.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"08\"";
+        }
+        if(raum09.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"09\"";
+        }
+        if(raum10.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"10\"";
+        }
+        if(raum11.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"11\"";
+        }
+        if(raum12.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"12\"";
+        }
+        if(raum13.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"13\"";
+        }
+        if(raum14.isChecked()){
+            if(etwMarkiert){
+                anfrage+=" OR ";
+            }
+            etwMarkiert=true;
+            anfrage+="raum=\"14\"";
         }
 
         anfrage+=";";
@@ -177,6 +362,7 @@ public class ITTeamHolen extends AppCompatActivity
                         String readLine=br.readLine();
                         texte[i]=readLine;
                         readLine = readLine.replaceAll("//","\n");
+                        readLine = readLine.replaceAll("ae","ä");
                         System.out.println(texte[i]);
                         String[] result = texte[i].split("Status: ");
                         final String status = result[1];
@@ -360,10 +546,14 @@ public class ITTeamHolen extends AppCompatActivity
 
         final String[] daten = new String[4];
         String[] results = text.split("//");
-        daten[0]=results[1].replace("Raum: ","");
-        daten[1]=results[2].replace("Wichtigkeit: ","");
-        daten[2]=results[3].replace("Fehler: ","");
-        daten[3]=results[4].replace("Beschreibung: ","");
+        daten[0]=results[0].replace("Datum: ","");
+        daten[1]=results[2].replace("Gebäude: ","");
+        daten[2]=results[3].replace("Etage: ","");
+        daten[3]=results[4].replace("Raum: ","");
+        daten[4]=results[5].replace("Wichtigkeit: ","");
+        daten[5]=results[6].replace("Fehler: ","");
+        daten[6]=results[7].replace("Beschreibung: ","");
+        daten[7]=results[8].replace("Status: ","");
 
 
         new Thread(new Runnable() {
@@ -376,7 +566,7 @@ public class ITTeamHolen extends AppCompatActivity
 
                     pw.println("ITTeamLoeschen");
                     pw.flush();
-                    pw.println("delete from fehlermeldungen where raum=\""+daten[0]+"\" and fehler=\""+daten[2]+"\";");
+                    pw.println("delete from fehlermeldungen where gebaeude=\""+daten[1]+" and etage=\""+daten[2]+" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";");
                     pw.flush();
 
                     s.close();
@@ -389,19 +579,21 @@ public class ITTeamHolen extends AppCompatActivity
                     pw.flush();
                     pw.println(daten[0]);
                     pw.flush();
-                    System.out.println("SENT 1");
                     pw.println(daten[1]);
                     pw.flush();
-                    System.out.println("SENT 2");
                     pw.println(daten[2]);
                     pw.flush();
-                    System.out.println("SENT 3");
                     pw.println(daten[3]);
                     pw.flush();
-                    System.out.println("SENT 4");
-                    pw.println(neu);
+                    pw.println(daten[4]);
                     pw.flush();
-                    System.out.println("SENT 5");
+                    pw.println(daten[5]);
+                    pw.flush();
+                    pw.println(daten[6]);
+                    pw.flush();
+                    pw.println(daten[7]);
+                    pw.flush();
+                    pw.close();
 
                     startActivity(new Intent(ac,ITTeamHolen.class));
 

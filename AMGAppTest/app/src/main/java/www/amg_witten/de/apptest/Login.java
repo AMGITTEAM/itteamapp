@@ -137,7 +137,9 @@ public class Login extends AppCompatActivity
 
                     File file = new File(ac.getFilesDir(),"Login.txt");
                     BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-                    bw.write(""+rechthoehe);
+                    bw.write(""+rechthoehe+"\n");
+                    bw.write(benutzername);
+                    bw.flush();
                     bw.close();
 
                     System.out.println(Startseite.login);

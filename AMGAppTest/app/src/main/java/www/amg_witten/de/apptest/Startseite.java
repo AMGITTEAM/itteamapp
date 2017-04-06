@@ -16,6 +16,7 @@ import java.io.FileReader;
 public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static int login;
+    public static String benutzername;
     public static String ip="10.0.2.2";
     public static int port=18732;
     public static int timeout=5000;
@@ -37,8 +38,9 @@ public class Startseite extends AppCompatActivity
             File file = new File(this.getFilesDir(), "Login.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String permission = br.readLine();
-            br.close();
             login = Integer.parseInt(permission); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
+            benutzername = br.readLine();
+            br.close();
         } catch (Exception e){
             e.printStackTrace();
             login=0;
