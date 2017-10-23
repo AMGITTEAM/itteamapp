@@ -1,2 +1,0 @@
-Passwort verschlüsselt speichern
-Logindatenauslesung verhindern
