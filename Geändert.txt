@@ -1,1 +1,7 @@
-Probleme behoben
+﻿Fehler im Vertretungsplan behoben
+Absturz im Feedback-Bereich behoben
+
+Lizenzprobleme mit Google behoben (App wieder im Play-Store verfügbar)
+Raumeingabe beim Melden eines IT-Fehlers vereinfacht
+Logikfehlerkorrektur im IT-Team-Abrufen-Bereich
+Menü-Fehler behoben

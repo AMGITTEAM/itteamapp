@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_startseite"
@@ -10,11 +11,31 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.Startseite"
-    tools:showIn="@layout/startseite_app_bar">
+    tools:context="www.amg_witten.de.apptest.Startseite">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="STARTSEITE" />
-</RelativeLayout>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/startseite_logo_description"
+            android:id="@+id/startseite_logo"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/logo_amg"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/startseite_text"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/startseite_logo"
+            android:text="@string/startseite_text"
+            />
+
+    </RelativeLayout>
+
+
+</ScrollView>

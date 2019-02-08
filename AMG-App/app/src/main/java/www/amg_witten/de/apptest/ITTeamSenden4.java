@@ -3,9 +3,7 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,15 +11,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,26 +26,31 @@ public class ITTeamSenden4 extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_senden4_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.all_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,null);
+        methoden.onCreateFillIn(this,this,null,R.layout.it_team_senden4);
 
-        TextView raumPr = (TextView)findViewById(R.id.raumPruefen);
-        raumPr.setText("Bitte wähle den Fehler für den Raum "+ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum+" aus!");
+        TextView raumPr = findViewById(R.id.raumPruefen);
+        if(ITTeamSenden.raum.equals("Ohne")){
+            raumPr.setText(getString(R.string.it_team_melden_fehler_ohneRaum));
+        }
+        else {
+            raumPr.setText(getString(R.string.it_team_melden_fehler,ITTeamSenden.gebaeude+ITTeamSenden.etage+ITTeamSenden.raum));
+        }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -58,11 +58,11 @@ public class ITTeamSenden4 extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        return methoden.onNavigationItemSelectedFillIn(item,0,this);
+        methoden.onNavigationItemSelectedFillIn(item,0,this);
+        return true;
     }
 
     public void Fehler(View view) {
@@ -101,27 +101,27 @@ public class ITTeamSenden4 extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket server=new Socket();
-                    server.connect(new InetSocketAddress(Startseite.ip,Startseite.port),Startseite.timeout);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(server.getInputStream()));
-                    PrintWriter pw = new PrintWriter(server.getOutputStream());
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request="+"select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    URL oracle = new URL(url);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
 
-                    pw.println("ITTeamHolen");
-                    pw.flush();
-                    pw.println("select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\";");
-                    pw.flush();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    String data = (in.readLine());
+                    in.close();
 
-                    int eintraegeZahl = Integer.parseInt(br.readLine());
+                    int eintraegeZahl = Integer.parseInt(data.split("/newthing/")[0]);
                     List<String> eintraege = new ArrayList<>();
                     for(int i=0;i<eintraegeZahl;i++){
-                        String bearbeiten = br.readLine();
+                        String bearbeiten = data.split("/newthing/")[i+1];
                         System.out.println(bearbeiten);
                         String[] results = bearbeiten.split("Wichtigkeit: ");
                         String raumDahinter = results[1];
                         results = raumDahinter.split("//");
                         eintraege.add(results[0]);
                     }
-                    server.close();
                     if(eintraegeZahl>0){
                         ITTeamSenden.wichtigkeit=eintraege.get(0);
                         runOnUiThread(new Runnable() {

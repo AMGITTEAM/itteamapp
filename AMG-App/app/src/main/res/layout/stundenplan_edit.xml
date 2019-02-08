@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" >
+
+        <EditText
+            android:id="@+id/stundenplan_edit_fachName"
+            android:importantForAccessibility="no"
+            android:importantForAutofill="no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/stundenplan_edit_fachname"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" >
+
+        <EditText
+            android:id="@+id/stundenplan_edit_fach"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:hint="@string/stundenplan_edit_fachAbk"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" >
+
+        <EditText
+            android:id="@+id/stundenplan_edit_lehrer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAutofill="no"
+            android:hint="@string/stundenplan_edit_lehrer"
+            android:inputType="textPersonName" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7" >
+
+        <EditText
+            android:hint="@string/stundenplan_edit_raum"
+            android:importantForAutofill="no"
+            android:id="@+id/stundenplan_edit_raum"
+            android:inputType="textPersonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/stundenplan_edit_fertig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stundenplan_edit_ready"
+        android:onClick="Fertig"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <Button
+        android:id="@+id/stundenplan_edit_loeschen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stundenplan_edit_delete"
+        android:onClick="Loeschen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+</android.support.constraint.ConstraintLayout>

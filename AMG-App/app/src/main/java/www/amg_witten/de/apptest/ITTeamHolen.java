@@ -2,14 +2,9 @@ package www.amg_witten.de.apptest;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,69 +16,61 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
 
 public class ITTeamHolen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    MenuItem offen;
-    MenuItem inBearbeitung;
-    MenuItem fertig;
-    MenuItem gebH;
-    MenuItem gebA;
-    MenuItem gebN;
-    MenuItem et2;
-    MenuItem et1;
-    MenuItem et0;
-    MenuItem etZ;
-    MenuItem etU;
-    MenuItem raum01;
-    MenuItem raum02;
-    MenuItem raum03;
-    MenuItem raum04;
-    MenuItem raum05;
-    MenuItem raum06;
-    MenuItem raum07;
-    MenuItem raum08;
-    MenuItem raum09;
-    MenuItem raum10;
-    MenuItem raum11;
-    MenuItem raum12;
-    MenuItem raum13;
-    MenuItem raum14;
+    private MenuItem offen;
+    private MenuItem inBearbeitung;
+    private MenuItem fertig;
+    private MenuItem gebH;
+    private MenuItem gebA;
+    private MenuItem gebN;
+    private MenuItem et2;
+    private MenuItem et1;
+    private MenuItem et0;
+    private MenuItem etZ;
+    private MenuItem etU;
+    private MenuItem raum01;
+    private MenuItem raum02;
+    private MenuItem raum03;
+    private MenuItem raum04;
+    private MenuItem raum05;
+    private MenuItem raum06;
+    private MenuItem raum07;
+    private MenuItem raum08;
+    private MenuItem raum09;
+    private MenuItem raum10;
+    private MenuItem raum11;
+    private MenuItem raum12;
+    private MenuItem raum13;
+    private MenuItem raum14;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_holen_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.all_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,2);
+        methoden.onCreateFillIn(this,this,4, R.layout.it_team_holen);
 
         ITTeamHolenAnzeigen("select * from fehlermeldungen where status=\"Offen\";");
     }
@@ -148,183 +135,332 @@ public class ITTeamHolen extends AppCompatActivity
         }
     }
 
-    public String AnfrageGenerieren() {
+    private String AnfrageGenerieren() {
         String anfrage = "select * from fehlermeldungen where ";
         boolean etwMarkiert = false;
+        boolean neuBereich = true;
 
         if(offen.isChecked()){
-            if(etwMarkiert){
+            /*if(etwMarkiert){
                 anfrage+=" OR ";
-            }
+            }*/
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="status=\"Offen\"";
         }
         if(inBearbeitung.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="status=\"In Bearbeitung\"";
         }
         if(fertig.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="status=\"Fertig\"";
         }
+        neuBereich=true;
         if(gebH.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="gebaeude=\"H\"";
         }
         if(gebA.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="gebaeude=\"A\"";
         }
         if(gebN.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="gebaeude=\"N\"";
         }
+        neuBereich=true;
         if(et2.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"2\"";
         }
         if(et1.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"1\"";
         }
         if(et0.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"0\"";
         }
         if(etZ.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"Z\"";
         }
         if(etU.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="etage=\"U\"";
         }
+        neuBereich=true;
         if(raum01.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"01\"";
         }
         if(raum02.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"02\"";
         }
         if(raum03.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"03\"";
         }
         if(raum04.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"04\"";
         }
         if(raum05.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"05\"";
         }
         if(raum06.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"06\"";
         }
         if(raum07.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"07\"";
         }
         if(raum08.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"08\"";
         }
         if(raum09.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"09\"";
         }
         if(raum10.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"10\"";
         }
         if(raum11.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"11\"";
         }
         if(raum12.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"12\"";
         }
         if(raum13.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
             etwMarkiert=true;
+            neuBereich=false;
             anfrage+="raum=\"13\"";
         }
         if(raum14.isChecked()){
             if(etwMarkiert){
-                anfrage+=" OR ";
+                if(neuBereich){
+                    anfrage+=" AND ";
+                }
+                else {
+                    anfrage+=" OR ";
+                }
             }
-            etwMarkiert=true;
+            //neuBereich=false;
+            //etwMarkiert=true;
             anfrage+="raum=\"14\"";
         }
 
@@ -333,24 +469,25 @@ public class ITTeamHolen extends AppCompatActivity
         return anfrage;
     }
 
-    public void ITTeamHolenAnzeigen(final String filter){
+    private void ITTeamHolenAnzeigen(final String filter){
         final Activity ac=this;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Socket s = new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
-                    PrintWriter pw = new PrintWriter(s.getOutputStream());
+                    URL url = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(url.openStream()));
 
-                    pw.println("ITTeamHolen");
-                    pw.flush();
-                    pw.println(filter);
-                    pw.flush();
-                    int eintraegeZahl = Integer.parseInt(br.readLine());
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    String data = in.readLine();
+                    System.out.println(data);
+                    in.close();
 
-                    final ViewGroup vg = (ViewGroup)findViewById(R.id.content_itteam_holen);
+                    int eintraegeZahl = Integer.parseInt(data.split("/newthing/")[0]);
+
+                    final ViewGroup vg = findViewById(R.id.content_itteam_holen);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -359,13 +496,13 @@ public class ITTeamHolen extends AppCompatActivity
                     });
                     final String[] texte = new String[eintraegeZahl];
                     for(int i=0;i<eintraegeZahl;i++){
-                        String readLine=br.readLine();
+                        String readLine=data.split("/newthing/")[i+1];
                         texte[i]=readLine;
                         readLine = readLine.replaceAll("//","\n");
                         readLine = readLine.replaceAll("ae","ä");
                         System.out.println(texte[i]);
                         String[] result = texte[i].split("Status: ");
-                        final String status = result[1];
+                        final String status = result[1].split("//")[0];
 
                         final View line = new View(ac);
                         line.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,2));
@@ -389,7 +526,7 @@ public class ITTeamHolen extends AppCompatActivity
                         params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
                         params.setMargins(0,25,10,0);
-                        button.setText("Status");
+                        button.setText(getString(R.string.it_team_holen_change_status));
                         switch (status){
                             case "Offen":
                                 button.setTextColor(0xffff0000);
@@ -405,7 +542,7 @@ public class ITTeamHolen extends AppCompatActivity
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                final String[] grpname = {"Offen","In Bearbeitung","Fertig"};
+                                final String[] grpname = {"Offen","In Bearbeitung","Fertig","Löschen"};
 
                                 LinearLayout ll = new LinearLayout(ac);
                                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -415,12 +552,14 @@ public class ITTeamHolen extends AppCompatActivity
                                 RadioButton rd1 = new RadioButton(ac);
                                 RadioButton rd2 = new RadioButton(ac);
                                 RadioButton rd3 = new RadioButton(ac);
+                                RadioButton rd4 = new RadioButton(ac);
 
                                 AlertDialog.Builder dialog = new AlertDialog.Builder(ac);
 
                                 rd1.setText(grpname[0]);
                                 rd2.setText(grpname[1]);
                                 rd3.setText(grpname[2]);
+                                rd4.setText(grpname[3]);
 
                                 switch (status){
                                     case "Offen":
@@ -438,6 +577,7 @@ public class ITTeamHolen extends AppCompatActivity
                                 ll.addView(rd1);
                                 ll.addView(rd2);
                                 ll.addView(rd3);
+                                ll.addView(rd4);
 
                                 dialog.setView(ll);
                                 dialog.setTitle("Bitte wähle den Status aus!");
@@ -467,6 +607,13 @@ public class ITTeamHolen extends AppCompatActivity
                                         diag.dismiss();
                                     }
                                 });
+                                rd4.setOnClickListener(new View.OnClickListener(){
+                                    @Override
+                                    public void onClick(View v) {
+                                        Loeschen(texte[finali]);
+                                        diag.dismiss();
+                                    }
+                                });
 
                             }
                         });
@@ -487,7 +634,7 @@ public class ITTeamHolen extends AppCompatActivity
                             @Override
                             public void run() {
                                 TextView tv = new TextView(ac);
-                                tv.setText("Keine Einträge vorhanden");
+                                tv.setText(getString(R.string.it_team_holen_nothing));
                                 vg.addView(tv);
                             }
                         });
@@ -510,7 +657,7 @@ public class ITTeamHolen extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -521,33 +668,21 @@ public class ITTeamHolen extends AppCompatActivity
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_startseite) {
-            Intent intent = new Intent(this, Startseite.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        } else if (id == R.id.nav_it_team_senden) {
-            startActivity(new Intent(this,ITTeamSenden.class));
-        } else if (id == R.id.nav_login) {
-            startActivity(new Intent(this,Login.class));
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Methoden methoden = new Methoden();
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_it_team_holen,this);
         return true;
     }
 
-    public void StatusAendern(final String neu, String text){
+    private void StatusAendern(final String neu, String text){
         final Activity ac = this;
 
         System.out.println(neu);
 
-        final String[] daten = new String[4];
+        final String[] daten = new String[8];
         String[] results = text.split("//");
         daten[0]=results[0].replace("Datum: ","");
-        daten[1]=results[2].replace("Gebäude: ","");
+        daten[1]=results[2].replace("Gebaeude: ","");
         daten[2]=results[3].replace("Etage: ","");
         daten[3]=results[4].replace("Raum: ","");
         daten[4]=results[5].replace("Wichtigkeit: ","");
@@ -560,40 +695,26 @@ public class ITTeamHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    Socket s = new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                    PrintWriter pw = new PrintWriter(s.getOutputStream());
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+daten[1]+"\" and etage=\""+daten[2]+"\" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    URL oracle = new URL(url);
+                    System.out.println(url);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
 
-                    pw.println("ITTeamLoeschen");
-                    pw.flush();
-                    pw.println("delete from fehlermeldungen where gebaeude=\""+daten[1]+" and etage=\""+daten[2]+" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";");
-                    pw.flush();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
 
-                    s.close();
+                    oracle = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+daten[0]+"&gebaeude="+daten[1]+"&etage="+daten[2]+"&raum="+daten[3]+"&wichtigkeit="+daten[4]+"&fehler="+daten[5]+"&beschreibung="+daten[6]+"&status="+neu+"&bearbeitetVon="+Startseite.prefs.getString("loginUsername",""));
+                    in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
 
-                    s=new Socket();
-                    s.connect(new InetSocketAddress(Startseite.ip,Startseite.port),5000);
-                    pw=new PrintWriter(s.getOutputStream());
-
-                    pw.println("ITTeamMelden");
-                    pw.flush();
-                    pw.println(daten[0]);
-                    pw.flush();
-                    pw.println(daten[1]);
-                    pw.flush();
-                    pw.println(daten[2]);
-                    pw.flush();
-                    pw.println(daten[3]);
-                    pw.flush();
-                    pw.println(daten[4]);
-                    pw.flush();
-                    pw.println(daten[5]);
-                    pw.flush();
-                    pw.println(daten[6]);
-                    pw.flush();
-                    pw.println(daten[7]);
-                    pw.flush();
-                    pw.close();
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
 
                     startActivity(new Intent(ac,ITTeamHolen.class));
 
@@ -612,4 +733,52 @@ public class ITTeamHolen extends AppCompatActivity
         }).start();
     }
 
+
+    private void Loeschen(String text){
+        final Activity ac = this;
+
+        final String[] daten = new String[8];
+        String[] results = text.split("//");
+        daten[0]=results[0].replace("Datum: ","");
+        daten[1]=results[2].replace("Gebaeude: ","");
+        daten[2]=results[3].replace("Etage: ","");
+        daten[3]=results[4].replace("Raum: ","");
+        daten[4]=results[5].replace("Wichtigkeit: ","");
+        daten[5]=results[6].replace("Fehler: ","");
+        daten[6]=results[7].replace("Beschreibung: ","");
+        daten[7]=results[8].replace("Status: ","");
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+daten[1]+"\" and etage=\""+daten[2]+"\" and raum=\""+daten[3]+"\" and fehler=\""+daten[5]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    url = url.replaceAll(" ","%20");
+                    URL oracle = new URL(url);
+                    System.out.println(url);
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(oracle.openStream()));
+
+                    while (!(in.readLine()).equals("<body>")){}
+                    in.readLine();
+                    System.out.println(in.readLine());
+                    in.close();
+
+                    startActivity(new Intent(ac,ITTeamHolen.class));
+
+                } catch (Exception e){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ac,"Fehler beim Löschen",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    Intent intent = new Intent(ac, Startseite.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            }
+        }).start();
+    }
 }
