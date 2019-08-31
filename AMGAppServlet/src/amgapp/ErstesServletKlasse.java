@@ -2,10 +2,7 @@ package amgapp;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-<<<<<<< HEAD
 import java.net.URLEncoder;
-=======
->>>>>>> 7d637169f1f2b94b02f3822c0d85677cb3fc82e7
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,7 +70,6 @@ public class ErstesServletKlasse extends HttpServlet {
 		}
 		try {
 			String returnString = Lite.transact(requestType, request, benutzername, passwort, datum, gebaeude, etage, raum, wichtigkeit, fehler, beschreibung, status, bearbeitetVon);
-<<<<<<< HEAD
 			if(!requestType.equals("vplan")) {
 				System.out.println(requestType+" not "+"vplan");
 				returnString = URLEncoder.encode(returnString.replaceAll("\n","//"), "utf-8");
@@ -87,11 +83,6 @@ public class ErstesServletKlasse extends HttpServlet {
 			else {
 				getServletContext().getRequestDispatcher("/ergebnis.jsp").forward(HttpRequest, HttpResponse);
 			}
-=======
-			HttpRequest.setAttribute("responsed", returnString);
-			HttpRequest.setAttribute("fehler", ausfuehrFehler);
-			getServletContext().getRequestDispatcher("/ergebnis.jsp").forward(HttpRequest, HttpResponse);
->>>>>>> 7d637169f1f2b94b02f3822c0d85677cb3fc82e7
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

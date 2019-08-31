@@ -21,10 +21,7 @@
         <version>3.0.0</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
-<<<<<<< HEAD
           <attachClasses>true</attachClasses>
-=======
->>>>>>> 7d637169f1f2b94b02f3822c0d85677cb3fc82e7
         </configuration>
       </plugin>
     </plugins>
@@ -34,7 +31,6 @@
   		<groupId>org.xerial</groupId>
   		<artifactId>sqlite-jdbc</artifactId>
   		<version>3.16.1</version>
-<<<<<<< HEAD
     	<scope>compile</scope>
   	</dependency>
 <dependency>
@@ -44,14 +40,10 @@
     	<scope>compile</scope>
 </dependency>
   	
-=======
-  	</dependency>
->>>>>>> 7d637169f1f2b94b02f3822c0d85677cb3fc82e7
   	<dependency>
     	<groupId>javax.servlet</groupId>
     	<artifactId>javax.servlet-api</artifactId>
     	<version>3.1.0</version>
-<<<<<<< HEAD
     	<scope>compile</scope>
 </dependency>
 <dependency>
@@ -61,9 +53,5 @@
     	<scope>compile</scope>
 </dependency>
 
-=======
-    	<scope>provided</scope>
-</dependency>
->>>>>>> 7d637169f1f2b94b02f3822c0d85677cb3fc82e7
   </dependencies>
 </project>
