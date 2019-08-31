@@ -10,20 +10,22 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="www.amg_witten.de.apptest.Login"
-    tools:showIn="@layout/login_app_bar">
+    tools:context="www.amg_witten.de.apptest.Login">
 
     <EditText
-        android:hint="Benutzername"
+        android:hint="@string/login_username"
+        android:autofillHints=".AUTOFILL_HINT_USERNAME"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:id="@+id/benutzername" />
+        android:id="@+id/benutzername"
+        android:inputType="text" />
 
     <EditText
-        android:hint="Passwort"
+        android:hint="@string/login_password"
+        android:autofillHints=".AUTOFILL_HINT_PASSWORD"
         android:inputType="textPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,7 +35,7 @@
         android:layout_marginTop="50dp" />
 
     <Button
-        android:text="Fertig"
+        android:text="@string/login_ready"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

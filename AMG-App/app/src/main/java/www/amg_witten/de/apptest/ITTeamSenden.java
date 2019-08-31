@@ -2,6 +2,7 @@ package www.amg_witten.de.apptest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,11 +11,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.NumberPicker;
 
 public class ITTeamSenden extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public static boolean gebFehler;
     public static String gebaeude;
     public static String etage;
     public static String raum;
@@ -23,26 +24,43 @@ public class ITTeamSenden extends AppCompatActivity
     public static String beschreibung;
     public static boolean ueberschreiben=true;
 
+    private NumberPicker gebaeudePicker;
+    private NumberPicker etagePicker;
+    private NumberPicker raumPicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.it_team_senden_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(R.layout.all_main);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,1);
+        methoden.onCreateFillIn(this,this,3,R.layout.it_team_senden);
+
+        gebFehler=false;
+
+        gebaeudePicker = findViewById(R.id.gebaeude);
+        etagePicker = findViewById(R.id.etage);
+        raumPicker = findViewById(R.id.raum);
+
+        gebaeudePicker.setDisplayedValues(getResources().getStringArray(R.array.it_team_melden_gebaeude_array));
+        gebaeudePicker.setMaxValue(getResources().getStringArray(R.array.it_team_melden_gebaeude_array).length-1);
+        etagePicker.setDisplayedValues(getResources().getStringArray(R.array.it_team_melden_etage_array));
+        etagePicker.setMaxValue(getResources().getStringArray(R.array.it_team_melden_etage_array).length-1);
+        raumPicker.setDisplayedValues(getResources().getStringArray(R.array.it_team_melden_raum_array));
+        raumPicker.setMaxValue(getResources().getStringArray(R.array.it_team_melden_raum_array).length-1);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -54,30 +72,24 @@ public class ITTeamSenden extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Methoden methoden = new Methoden();
-        return methoden.onNavigationItemSelectedFillIn(item,R.id.nav_it_team_senden,this);
+        methoden.onNavigationItemSelectedFillIn(item,R.id.nav_it_team_senden,this);
+        return true;
     }
 
-    public void gebaeude(View view) {
-        startActivity(new Intent(this,ITTeamSenden2.class));
-        switch (view.getId()){
-            case R.id.H:
-                System.out.println("H");
-                gebaeude="H";
-                return;
-            case R.id.A:
-                System.out.println("A");
-                gebaeude="A";
-                return;
-            case R.id.N:
-                System.out.println("N");
-                gebaeude="N";
-                return;
-            default:
-                System.out.println("Nicht gefunden: "+view.getId());
-                Toast.makeText(this,"Error",Toast.LENGTH_LONG).show();
-                System.exit(0);
-        }
+    public void fertig(View view) {
+        gebaeude = getResources().getStringArray(R.array.it_team_melden_gebaeude_array)[gebaeudePicker.getValue()];
+        etage = getResources().getStringArray(R.array.it_team_melden_etage_array)[etagePicker.getValue()];
+        raum = getResources().getStringArray(R.array.it_team_melden_raum_array)[raumPicker.getValue()];
+
+        startActivity(new Intent(this,ITTeamSenden4.class));
+    }
+
+    public void ohne(View view){
+        gebaeude="Ohne";
+        etage="Ohne";
+        raum="Ohne";
+        startActivity(new Intent(this,ITTeamSenden4.class));
     }
 }

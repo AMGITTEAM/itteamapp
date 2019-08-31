@@ -1,0 +1,4 @@
+﻿Startseite
+Schwarzes Brett
+ -> Klausurtermine im Stundenplan
+Serverrückmeldung auswerten
