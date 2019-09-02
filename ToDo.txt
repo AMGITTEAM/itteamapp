@@ -1,12 +1,6 @@
 ﻿Startseite
 Schwarzes Brett
  -> Klausurtermine im Stundenplan
-<<<<<<< HEAD
 Serverrückmeldung auswerten
-=======
-Kurssprecher im Stundenplan
-Serverrückmeldung auswerten
-Schulkalender von der Homepage
-Bei Änderung im Vertretungsplan -> Benachrichtigung
-Nach oben wischen im Vertretungsplan für Aktualisierung
->>>>>>> 7d637169f1f2b94b02f3822c0d85677cb3fc82e7
+Hausmeldung beenden
+AG-Vorstellung
