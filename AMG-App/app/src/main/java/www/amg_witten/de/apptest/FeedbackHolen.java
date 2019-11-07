@@ -47,7 +47,7 @@ public class FeedbackHolen extends AppCompatActivity
         toggle.syncState();
 
         Methoden methoden = new Methoden();
-        methoden.onCreateFillIn(this,this,5, R.layout.it_team_holen);
+        methoden.onCreateFillIn(this,this,6, R.layout.it_team_holen);
 
         ITTeamHolenAnzeigen("select * from feedback;");
     }
@@ -58,7 +58,7 @@ public class FeedbackHolen extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=FeedbackHolen&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    URL url = new URL("http://amgitt.de/AMGAppServlet/amgapp?requestType=FeedbackHolen&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(url.openStream()));
 
@@ -202,7 +202,7 @@ public class FeedbackHolen extends AppCompatActivity
             public void run() {
                 try {
                     daten[1]=URLEncoder.encode(daten[1].replaceAll("\"","\"\""),"utf-8");
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from feedback where type=\""+daten[0]+"\" and description=\""+daten[1]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from feedback where type=\""+daten[0]+"\" and description=\""+daten[1]+"\";&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     URL oracle = new URL(url);
                     System.out.println(url);

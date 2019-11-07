@@ -1,9 +1,8 @@
 amgapp\ErstesServletKlasse.class
-amgapp\Abrufen.class
 amgapp\MyAuthenticator.class
 amgapp\VertretungModelArrayModel.class
-amgapp\Melden.class
 amgapp\SUSAuthenticator.class
 amgapp\Lite.class
 amgapp\VertretungModel.class
 amgapp\VPlan.class
+amgapp\Visual.class

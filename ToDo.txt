@@ -1,6 +1,5 @@
 ﻿Startseite
-Schwarzes Brett
- -> Klausurtermine im Stundenplan
+Klausurtermine im Stundenplan
 Serverrückmeldung auswerten
 Hausmeldung beenden
 AG-Vorstellung

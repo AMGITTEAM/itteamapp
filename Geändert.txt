@@ -1,1 +1,6 @@
-﻿Vertretungsplan reaktiviert
+﻿• Schwarzes Brett hinzugefügt
+• Umlaute im Vertretungsplan korrigiert
+• Gradle Update
+• Stundenplan kann jetzt auch offline angesehen werden
+• Vertretungsplan repariert (Re-Login benötigt)
+• Kommunikation auf Port 80 umgestellt

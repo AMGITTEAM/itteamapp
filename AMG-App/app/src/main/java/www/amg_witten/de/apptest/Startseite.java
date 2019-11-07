@@ -2,6 +2,7 @@ package www.amg_witten.de.apptest;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -21,15 +22,33 @@ public class Startseite extends AppCompatActivity
     public static String passwort;
     public static SharedPreferences prefs;
 
+    /*public static int theme;
+    public static int barColor;
+    public static int navItemColor;*/
+
 
     public static final boolean KURSSPRECHER_ENABLED = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*theme = R.style.DarkTheme;
+
+        switch(theme){
+            case R.style.DarkTheme:
+                barColor = R.color.darkBar;
+                navItemColor = R.color.darkTextColor;
+                break;
+            case R.style.AppTheme_NoActionBar:
+                break;
+        }
+
+        setTheme(theme);*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        //toolbar.setBackgroundColor(getResources().getColor(barColor));
         setSupportActionBar(toolbar);
+        //((NavigationView)(findViewById(R.id.main_nav_view))).setItemTextColor(ColorStateList.valueOf(getResources().getColor(navItemColor)));
 
         DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -104,6 +123,9 @@ public class Startseite extends AppCompatActivity
                 prefs.edit().putString("stundenplanDonnerstag",donnerstag).apply();
                 String freitag = prefs.getString("stundenplanFreitag","").replaceAll("\\|\\| \\|\\| \\|\\| ","|| || || || ");
                 prefs.edit().putString("stundenplanFreitag",freitag).apply();
+            }
+            if(savedVersionCode<37){
+                startActivity(new Intent(this,Login.class));
             }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

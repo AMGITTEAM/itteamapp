@@ -198,10 +198,10 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 List<VertretungModel> fertigeMulti = new ArrayList<>();
                 final List<VertretungModelArrayModel> data = new ArrayList<>();
                 final List<String> fertigeKlassen = new ArrayList<>();
-                try {
-                    Looper.prepare();
-                    final ProgressDialog pDialog = new ProgressDialog(thise);
 
+                Looper.prepare();
+                final ProgressDialog pDialog = new ProgressDialog(thise);
+                try {
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -215,7 +215,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
                     Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndings.add("001.htm");
-                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Heute/";
+                    String main = "http://sus.amg-witten.de/Heute/";
 
                     Vertretungsplan.getAllEndings(main,urlEndings);
 
@@ -281,6 +281,12 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
                 catch (Exception e) {
                     e.printStackTrace();
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.hide();
+                        }
+                    });
                 }
                 final List<String> urlEndingsFolgetag = new ArrayList<>();
                 List<String> tablesFolgetag = new ArrayList<>();
@@ -291,8 +297,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 final List<VertretungModelArrayModel> dataFolgetag = new ArrayList<>();
                 final List<String> fertigeKlassenFolgetag = new ArrayList<>();
                 try {
-                    final ProgressDialog pDialog = new ProgressDialog(thise);
-
                     thise.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -306,7 +310,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
                     Authenticator.setDefault(new MyAuthenticator(thise));
                     urlEndingsFolgetag.add("001.htm");
-                    String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/Folgetag/";
+                    String main = "http://sus.amg-witten.de/Folgetag/";
 
                     Vertretungsplan.getAllEndings(main,urlEndingsFolgetag);
 
@@ -372,6 +376,12 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 }
                 catch (Exception e) {
                     e.printStackTrace();
+                    thise.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            pDialog.hide();
+                        }
+                    });
                 }
             }
         }).start();
@@ -540,6 +550,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
         if(resultCode==1){
             if(stundePicking!=0){
                 Loeschen();

@@ -3,7 +3,6 @@ package www.amg_witten.de.apptest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
@@ -11,7 +10,6 @@ import android.os.PersistableBundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -23,17 +21,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -42,6 +34,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.URL;
@@ -129,7 +122,7 @@ public class Vertretungsplan extends AppCompatActivity
 
             Authenticator.setDefault(new MyAuthenticator(thise));
             urlEndings.add("001.htm");
-            String main = "https://www.amg-witten.de/fileadmin/VertretungsplanSUS/"+date+"/";
+            String main = "http://sus.amg-witten.de/"+date+"/";
             System.out.println(main);
 
             getAllEndings(main,urlEndings);
@@ -260,7 +253,8 @@ public class Vertretungsplan extends AppCompatActivity
         while(!exit) {
             URL mainUrl = new URL(main+"subst_"+next);
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(mainUrl.openStream()));
+            InputStream stream = mainUrl.openStream();
+            BufferedReader in = new BufferedReader(new InputStreamReader(stream));
             StringBuilder full = new StringBuilder();
             String str;
             while ((str = in.readLine()) != null) {

@@ -83,7 +83,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                 System.out.println("WORKING");
                 try {
                     if(!ITTeamSenden.ueberschreiben){
-                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamHolen&request=select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                        String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=ITTeamHolen&request=select * from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                         url = url.replaceAll(" ","%20");
                         URL oracle = new URL(url);
                         BufferedReader in = new BufferedReader(
@@ -100,7 +100,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         String[] datums = bisher.split("Datum: ");
                         String datum = datums[1].split("//")[0];
 
-                        url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                        url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=ITTeamLoeschen&request=delete from fehlermeldungen where gebaeude=\""+ITTeamSenden.gebaeude+"\" and etage=\""+ITTeamSenden.etage+"\" and raum=\""+ITTeamSenden.raum+"\" and fehler=\""+ITTeamSenden.fehler+"\"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                         url = url.replaceAll(" ","%20");
                         oracle = new URL(url);
                         in = new BufferedReader(
@@ -111,7 +111,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                         System.out.println(in.readLine());
                         in.close();
 
-                        url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+datum+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+beschr+";"+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                        url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+datum+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+beschr+";"+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
                         url = url.replaceAll(" ","%20");
                         oracle = new URL(url);
                         in = new BufferedReader(
@@ -131,7 +131,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                     }
                     else {
                         if(ITTeamSenden.gebFehler){
-                            String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=GebaeudefehlerMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                            String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=GebaeudefehlerMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
                             url = url.replaceAll(" ","%20");
                             URL oracle = new URL(url);
                             System.out.println(oracle);
@@ -150,7 +150,7 @@ public class ITTeamSendenPruefung extends AppCompatActivity
                             });
                         }
                         else {
-                            String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
+                            String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=ITTeamMelden&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date())+"&gebaeude="+ITTeamSenden.gebaeude+"&etage="+ITTeamSenden.etage+"&raum="+ITTeamSenden.raum+"&wichtigkeit="+ITTeamSenden.wichtigkeit+"&fehler="+ITTeamSenden.fehler+"&beschreibung="+ITTeamSenden.beschreibung+"&status=Offen&bearbeitetVon=Keiner";
                             url = url.replaceAll(" ","%20");
                             URL oracle = new URL(url);
                             System.out.println(oracle);

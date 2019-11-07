@@ -123,7 +123,7 @@ public class Login extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=Login&request=&username="+benutzername+"&password="+passwort+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=Login&request=&username="+benutzername+"&password="+passwort+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     System.out.println(url);
                     URL oracle = new URL(url);

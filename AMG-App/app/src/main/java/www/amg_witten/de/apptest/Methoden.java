@@ -35,6 +35,11 @@ class Methoden {
                     currentActivity.startActivity(new Intent(currentActivity, Stundenplan.class));
                 }
                 break;
+            case R.id.nav_schwarzes_brett:
+                if (id != currentNavId) {
+                    currentActivity.startActivity(new Intent(currentActivity, SchwarzesBrett.class));
+                }
+                break;
             case R.id.nav_it_team_senden:
                 if (id != currentNavId) {
                     currentActivity.startActivity(new Intent(currentActivity, ITTeamSenden.class));
@@ -109,15 +114,16 @@ class Methoden {
             navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
             navigationView.getMenu().getItem(5).setVisible(false);
+            navigationView.getMenu().getItem(6).setVisible(false);
         }
         if(Startseite.login==1){
-            navigationView.getMenu().getItem(3).setVisible(false);
             navigationView.getMenu().getItem(4).setVisible(false);
             navigationView.getMenu().getItem(5).setVisible(false);
+            navigationView.getMenu().getItem(6).setVisible(false);
         }
         if(Startseite.login<=2){
-            navigationView.getMenu().getItem(4).setVisible(false);
             navigationView.getMenu().getItem(5).setVisible(false);
+            navigationView.getMenu().getItem(6).setVisible(false);
         }
 
         ViewStub stub = currentActivity.findViewById(R.id.all_content);
