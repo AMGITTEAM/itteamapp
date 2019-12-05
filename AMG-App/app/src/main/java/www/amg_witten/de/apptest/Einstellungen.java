@@ -6,7 +6,9 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -17,16 +19,21 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import yuku.ambilwarna.colorpicker.AmbilWarnaDialogFragment;
@@ -39,18 +46,11 @@ public class Einstellungen extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,901,R.layout.einstellungen);
 
         final SharedPreferences prefs = getSharedPreferences("Prefs",MODE_PRIVATE);
@@ -121,6 +121,35 @@ public class Einstellungen extends AppCompatActivity
             }
         });
         onValueChangeListenerNr.onValueChange(klasseNr,0,position);
+
+        if(Startseite.theme == R.style.DarkTheme){
+            setNumberPickerTextColor(klasseNr,getResources().getColor(R.color.darkTextColor));
+            setNumberPickerTextColor(klasseEndung,getResources().getColor(R.color.darkTextColor));
+        }
+
+        if((getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES){
+            findViewById(R.id.einstellungen_darkDesign_layout).setVisibility(View.GONE);
+        }
+        else {
+            final Switch darkDesign = findViewById(R.id.einstellungen_darkDesign_switch);
+            darkDesign.setChecked(Startseite.prefs.getBoolean("dunklesDesign",false));
+            darkDesign.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    prefs.edit().putBoolean("dunklesDesign",isChecked).apply();
+                    startActivity(new Intent(context, Einstellungen.class));
+                }
+            });
+        }
+
+        final Switch kalender = findViewById(R.id.einstellungen_kalenderAusblenden_switch);
+        kalender.setChecked(!Startseite.prefs.getBoolean("kalenderAusblenden",false));
+        kalender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                prefs.edit().putBoolean("kalenderAusblenden",isChecked).apply();
+            }
+        });
 
 
         RelativeLayout notificationLayout = findViewById(R.id.einstellungen_notification_layout);
@@ -276,6 +305,35 @@ public class Einstellungen extends AppCompatActivity
                 startActivity(new Intent(context, Einstellungen.class));
             }
         });
+    }
+
+    public static boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
+    {
+        final int count = numberPicker.getChildCount();
+        for(int i = 0; i < count; i++){
+            View child = numberPicker.getChildAt(i);
+            if(child instanceof EditText){
+                try{
+                    Field selectorWheelPaintField = numberPicker.getClass()
+                            .getDeclaredField("mSelectorWheelPaint");
+                    selectorWheelPaintField.setAccessible(true);
+                    ((Paint)selectorWheelPaintField.get(numberPicker)).setColor(color);
+                    ((EditText)child).setTextColor(color);
+                    numberPicker.invalidate();
+                    return true;
+                }
+                catch(NoSuchFieldException e){
+                    Log.w("setNumberPickerTextColo", e);
+                }
+                catch(IllegalAccessException e){
+                    Log.w("setNumberPickerTextColo", e);
+                }
+                catch(IllegalArgumentException e){
+                    Log.w("setNumberPickerTextColo", e);
+                }
+            }
+        }
+        return false;
     }
 
     private void showColorDialog(int color, String tag, int originalColor){

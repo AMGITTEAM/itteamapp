@@ -59,12 +59,36 @@ public class Visual extends HttpServlet {
 					getServletContext().getRequestDispatcher("/main_layout.jsp").forward(HttpRequest, HttpResponse);
 					return;
 				}
+				else if(requestType.equals("datenschutz")) {
+					HttpRequest.setAttribute("title", "Datenschutz");
+					HttpRequest.setAttribute("content_file", "/datenschutz.jsp");
+					getServletContext().getRequestDispatcher("/main_layout.jsp").forward(HttpRequest, HttpResponse);
+					return;
+				}
+				else if(requestType.equals("impressum")) {
+					HttpRequest.setAttribute("title", "Impressum");
+					HttpRequest.setAttribute("content_file", "/impressum.jsp");
+					getServletContext().getRequestDispatcher("/main_layout.jsp").forward(HttpRequest, HttpResponse);
+					return;
+				}
 				else {
 					HttpRequest.setAttribute("title", "Startseite");
 					HttpRequest.setAttribute("content_file", "startseite_content.jsp");
 					getServletContext().getRequestDispatcher("/main_layout.jsp").forward(HttpRequest, HttpResponse);
 					return;
 				}
+			}
+			else if(requestType.equals("datenschutz")) {
+				HttpRequest.setAttribute("title", "Datenschutz");
+				HttpRequest.setAttribute("content_file", "/datenschutz.jsp");
+				getServletContext().getRequestDispatcher("/main_layout.jsp").forward(HttpRequest, HttpResponse);
+				return;
+			}
+			else if(requestType.equals("impressum")) {
+				HttpRequest.setAttribute("title", "Impressum");
+				HttpRequest.setAttribute("content_file", "/impressum.jsp");
+				getServletContext().getRequestDispatcher("/main_layout.jsp").forward(HttpRequest, HttpResponse);
+				return;
 			}
 			else if(requestType.equals("")) {
 				HttpRequest.setAttribute("title", "Startseite");

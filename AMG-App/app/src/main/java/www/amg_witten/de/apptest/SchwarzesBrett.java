@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -38,18 +39,11 @@ public class SchwarzesBrett extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,3, R.layout.it_team_holen);
 
         String klasse = Startseite.prefs.getString("klasse","");
@@ -62,9 +56,8 @@ public class SchwarzesBrett extends AppCompatActivity
             @Override
             public void run() {
                 try {
-                    URL url = new URL("http://amgitt.de/AMGAppServlet/amgapp?requestType=SchwarzesBrett&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(url.openStream()));
+                    URL url = new URL("https://amgitt.de/AMGAppServlet/amgapp?requestType=SchwarzesBrett&request="+filter+"&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum=&gebaeude=&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=");
+                    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 
                     while (!(in.readLine()).equals("<body>")){}
                     in.readLine();
@@ -115,7 +108,6 @@ public class SchwarzesBrett extends AppCompatActivity
                         params.setMargins(10,10,10,10);
                         tv.setLayoutParams(params);
                         tv.setTextSize(20);
-                        tv.setTextColor(Color.BLACK);
                         tv.setText(readLine.split("\nTitel: \"")[1].split("\"\nInhalt: ")[0]);
                         tv.setId(View.generateViewId());
                         rl.addView(tv);

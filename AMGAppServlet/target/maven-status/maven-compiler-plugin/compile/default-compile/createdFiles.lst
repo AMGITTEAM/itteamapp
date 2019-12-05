@@ -1,6 +1,7 @@
 amgapp\ErstesServletKlasse.class
 amgapp\MyAuthenticator.class
 amgapp\VertretungModelArrayModel.class
+amgapp\RequestLoggingFilter.class
 amgapp\SUSAuthenticator.class
 amgapp\Lite.class
 amgapp\VertretungModel.class

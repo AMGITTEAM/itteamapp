@@ -297,6 +297,8 @@
     <string name="einstellungen_klasse">Aktuelle Klasse:</string>
 
     <string name="einstellungen_notification">Benachrichtigung an/aus:</string>
+    <string name="einstellungen_darkDesign">Dunkles Design an/aus:</string>
+    <string name="einstellungen_kalenderAusblenden">Kalender auf der Startseite an/aus:</string>
 
     <string name="einstellungen_notificationtime">Benachrichtigungszeit:</string>
     <string name="einstellungen_notificationtime_edit">Bearbeiten</string>
@@ -377,14 +379,17 @@ Fax: +49 02302 189059\n
 
     <!--Changelogs-->
 
-    <string name="changelog">• Schwarzes Brett hinzugefügt\n
-        • Umlaute im Vertretungsplan korrigiert\n
-        • Gradle Update\n
-        • Stundenplan kann jetzt auch offline angesehen werden\n
-        • Vertretungsplan repariert (Re-Login benötigt)\n
-        • Kommunikation auf Port 80 umgestellt</string>
+    <string name="changelog">• Dunkles Design hinzugefügt\n
+    • Kommunikation auf HTTPS umgestellt\n
+    • Kalender von der Startseite kann ausgeblendet werden\n
+    • Logo auf der Startseite aktualisiert</string>
 
     <string name="changelog_all">
+        <b>1.4.0 - 03.12.2019</b>\n
+        • Dunkles Design hinzugefügt\n
+        • Kommunikation auf HTTPS umgestellt\n
+        • Kalender von der Startseite kann ausgeblendet werden\n
+        • Logo auf der Startseite aktualisiert\n\n
         <b>1.3.0 - 07.11.2019</b>\n
         • Schwarzes Brett hinzugefügt\n
         • Umlaute im Vertretungsplan korrigiert\n

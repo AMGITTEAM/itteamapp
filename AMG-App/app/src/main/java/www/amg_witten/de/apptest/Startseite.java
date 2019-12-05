@@ -3,6 +3,8 @@ package www.amg_witten.de.apptest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.navigation.NavigationView;
@@ -13,7 +15,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 public class Startseite extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,48 +26,38 @@ public class Startseite extends AppCompatActivity
     public static String passwort;
     public static SharedPreferences prefs;
 
-    /*public static int theme;
+    public static int theme;
     public static int barColor;
-    public static int navItemColor;*/
+    public static int textColor;
 
 
     public static final boolean KURSSPRECHER_ENABLED = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*theme = R.style.DarkTheme;
-
-        switch(theme){
-            case R.style.DarkTheme:
-                barColor = R.color.darkBar;
-                navItemColor = R.color.darkTextColor;
-                break;
-            case R.style.AppTheme_NoActionBar:
-                break;
-        }
-
-        setTheme(theme);*/
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        //toolbar.setBackgroundColor(getResources().getColor(barColor));
-        setSupportActionBar(toolbar);
-        //((NavigationView)(findViewById(R.id.main_nav_view))).setItemTextColor(ColorStateList.valueOf(getResources().getColor(navItemColor)));
-
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         initVars();
 
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,0, R.layout.startseite);
 
-        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptEnabled(true);
-        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-        ((WebView)findViewById(R.id.webViewStartseiteCalendar)).loadUrl("https://calendar.google.com/calendar/embed?title=Demn%C3%A4chst%20am%20AMG&showPrint=0&showTabs=0&showCalendars=0&showNav=0&showDate=0&showTz=0&mode=AGENDA&height=500&wkst=1&bgcolor=%23FFFFFF&src=lvcbajbvce91hrj2cg531ess60%40group.calendar.google.com&color=%235229A3&ctz=Europe%2FBerlin");
+        if(prefs.getBoolean("kalenderAusblenden",false)){
+            ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptEnabled(true);
+            ((WebView)findViewById(R.id.webViewStartseiteCalendar)).getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+            ((WebView)findViewById(R.id.webViewStartseiteCalendar)).loadUrl("https://calendar.google.com/calendar/embed?title=Demn%C3%A4chst%20am%20AMG&showPrint=0&showTabs=0&showCalendars=0&showNav=0&showDate=0&showTz=0&mode=AGENDA&height=500&wkst=1&bgcolor=%23FFFFFF&src=lvcbajbvce91hrj2cg531ess60%40group.calendar.google.com&color=%235229A3&ctz=Europe%2FBerlin");
+        }
+        else {
+            findViewById(R.id.webViewStartseiteCalendar).setVisibility(View.GONE);
+        }
+        if(theme == R.style.DarkTheme){
+            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu/*R.drawable.logo_amg_dark*/));
+        }
+        else {
+            ((ImageView)findViewById(R.id.startseite_logo)).setImageDrawable(getResources().getDrawable(R.drawable.ausweis_logo_neu/*R.drawable.logo_amg*/));
+        }
 
         checkForFirstRun();
     }

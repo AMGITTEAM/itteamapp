@@ -20,18 +20,11 @@ public class SchwarzesBrettDetails extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,null,R.layout.schwarzes_brett_details);
 
         String readLine = getIntent().getStringExtra("readLine");

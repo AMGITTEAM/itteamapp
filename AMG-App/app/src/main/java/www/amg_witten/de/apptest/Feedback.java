@@ -41,18 +41,11 @@ public class Feedback extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,902,R.layout.feedback);
 
         types[0] = getString(R.string.feedback_type_none);
@@ -98,7 +91,7 @@ public class Feedback extends AppCompatActivity
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                try {String url = "https://amgitt.de/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     url = url.replaceAll("\n","%30");
                     URL oracle = new URL(url);
@@ -163,7 +156,7 @@ public class Feedback extends AppCompatActivity
                 System.out.println("WORKING");
                 try {
                     description = URLEncoder.encode(description,"utf-8");
-                    String url = "http://amgitt.de/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                    String url = "https://amgitt.de/AMGAppServlet/amgapp?requestType=Feedback&request=&username="+Startseite.prefs.getString("loginUsername","")+"&password="+Startseite.prefs.getString("loginPassword","")+"&datum="+type+"&gebaeude="+description+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                     url = url.replaceAll(" ","%20");
                     url = url.replaceAll("\n","%30");
                     URL oracle = new URL(url);

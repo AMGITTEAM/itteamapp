@@ -80,13 +80,11 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,2,R.layout.stundenplan_activity);
 
         tabLayout = findViewById(R.id.tab_layout);
@@ -160,12 +158,6 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
             public void onPageScrollStateChanged(int i) {}
         });
 
-
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
         transistioning=false;
         bearbeiten=false;
 
@@ -200,7 +192,13 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                 final List<String> fertigeKlassen = new ArrayList<>();
 
                 Looper.prepare();
-                final ProgressDialog pDialog = new ProgressDialog(thise);
+                final ProgressDialog pDialog;
+                if(Startseite.theme == R.style.DarkTheme){
+                    pDialog = new ProgressDialog(thise,R.style.DarkDialog);
+                }
+                else {
+                    pDialog = new ProgressDialog(thise);
+                }
                 try {
                     thise.runOnUiThread(new Runnable() {
                         @Override
@@ -679,7 +677,7 @@ public class Stundenplan extends AppCompatActivity implements NavigationView.OnN
                                 public void run() {
                                     try {
                                         final String fachId = ((CustomListAdapter.ViewHolder)(view).getTag()).fachID;
-                                        String url = "http://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude="+klasse+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
+                                        String url = "https://amgitt.de:8080/AMGAppServlet/amgapp?requestType=KurssprecherRequest&request=&username="+Startseite.benutzername+"&password="+Startseite.passwort+"&datum="+fachId+"&gebaeude="+klasse+"&etage=&raum=&wichtigkeit=&fehler=&beschreibung=&status=&bearbeitetVon=";
                                         url = url.replaceAll(" ","%20");
                                         URL oracle = new URL(url);
                                         BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()));

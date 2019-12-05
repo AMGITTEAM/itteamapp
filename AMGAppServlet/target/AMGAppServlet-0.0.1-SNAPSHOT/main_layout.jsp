@@ -5,8 +5,7 @@
 <jsp:useBean id="benutzername" scope="request" type="java.lang.String" />
 <jsp:useBean id="passwort" scope="request" type="java.lang.String" />
 <jsp:useBean id="content_file" scope="request" type="java.lang.String" />
-<jsp:useBean id="vplan" scope="request"
-	type="java.lang.Boolean" />
+<jsp:useBean id="vplan" scope="request" type="java.lang.Boolean" />
 
 <!doctype html>
 <html lang="de">
@@ -51,11 +50,15 @@ bitte die Nutzungsbedingungen nach.
 <!-- all.min.css = fontawesome-icon-font -->
 <link rel="stylesheet" href="css/all.min.css" type="text/css">
 
-<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180"
+	href="images/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+	href="images/favicon-16x16.png">
 <link rel="manifest" href="images/site.webmanifest">
-<link rel="mask-icon" href="images/safari-pinned-tab.svg" color="#ffffff">
+<link rel="mask-icon" href="images/safari-pinned-tab.svg"
+	color="#ffffff">
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="theme-color" content="#ffffff">
 
@@ -63,17 +66,51 @@ bitte die Nutzungsbedingungen nach.
 .vplan {
 	background: #ccc;
 }
-@media(max-width: 1024px){
+
+@media ( max-width : 1024px) {
 	.vplan {
-		padding-left:0;
-		padding-right:0;
-		margin-left:0;
-		margin-right:0;
-		width:100vw;
+		padding-left: 0;
+		padding-right: 0;
+		margin-left: 0;
+		margin-right: 0;
+		width: 100vw;
 	}
 }
 </style>
 
+<link rel="stylesheet" type="text/css"
+	href="//wpcc.io/lib/1.0.2/cookieconsent.min.css" />
+<script src="//wpcc.io/lib/1.0.2/cookieconsent.min.js"></script>
+<script>
+	window
+			.addEventListener(
+					"load",
+					function() {
+						window.wpcc
+								.init({
+									"colors" : {
+										"popup" : {
+											"background" : "#f6f6f6",
+											"text" : "#000000",
+											"border" : "#555555"
+										},
+										"button" : {
+											"background" : "#555555",
+											"text" : "#ffffff"
+										}
+									},
+									"position" : "bottom",
+									"padding" : "small",
+									"margin" : "none",
+									"content" : {
+										"message" : "Diese Website nutzt Cookies, um die Nutzungsstatistiken noch detaillierter zu gestalten.",
+										"link" : "Mehr erfahren",
+										"button" : "Meinetwegen",
+										"href" : "https://amgitt.de/AMGAppServlet/visual?username=&amp;password=&amp;requestType=datenschutz#Cookies"
+									}
+								})
+					});
+</script>
 
 
 </head>
@@ -137,13 +174,13 @@ bitte die Nutzungsbedingungen nach.
 								<ul>
 									<li>
 										<a
-											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password="
-						+ passwort+"&requestType=vplan-heute"%>>Heute</a>
+											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+						+ "&requestType=vplan-heute"%>>Heute</a>
 									</li>
 									<li>
 										<a
-											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password="
-						+ passwort+"&requestType=vplan-folgetag"%>>Folgetag</a>
+											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+						+ "&requestType=vplan-folgetag"%>>Folgetag</a>
 									</li>
 								</ul>
 
@@ -153,8 +190,10 @@ bitte die Nutzungsbedingungen nach.
 						<div class="bereich">
 							<input id="ac-3" name="akkordeon-1" type="radio">
 							<label for="ac-3">
-								<a href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password="
-						+ passwort+"&requestType=schwarzes-brett"%>>Schwarzes Brett</a>
+								<a
+									href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+						+ "&requestType=schwarzes-brett"%>>Schwarzes
+									Brett</a>
 							</label>
 							<span class="no-drop" />
 						</div>
@@ -169,8 +208,10 @@ bitte die Nutzungsbedingungen nach.
 						<div class="bereich">
 							<input id="ac-4" name="akkordeon-1" type="radio">
 							<label for="ac-4">
-								<a href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password="
-						+ passwort+"&requestType=it-team-melden"%>>IT-Team Melden</a>
+								<a
+									href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+						+ "&requestType=it-team-melden"%>>IT-Team
+									Melden</a>
 							</label>
 							<span class="no-drop">&nbsp;</span>
 						</div>
@@ -189,8 +230,9 @@ bitte die Nutzungsbedingungen nach.
 							<span>
 								<ul>
 									<li>
-										<a href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password="
-						+ passwort+"&requestType=it-team-melden"%>>Melden</a>
+										<a
+											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+						+ "&requestType=it-team-melden"%>>Melden</a>
 									</li>
 									<li>
 										<a href="">Abrufen</a>
@@ -261,7 +303,8 @@ bitte die Nutzungsbedingungen nach.
 						<div class="bereich">
 							<input id="ac-6" name="akkordeon-1" type="radio">
 							<label for="ac-6">
-								<a href="/AMGAppServlet/visual?username=&password=&requestType=login">Login</a>
+								<a
+									href="/AMGAppServlet/visual?username=&password=&requestType=login">Login</a>
 							</label>
 							<span class="no-drop">&nbsp;</span>
 						</div>
@@ -293,7 +336,8 @@ bitte die Nutzungsbedingungen nach.
 						<%
 							}
 						%>
-						<h2><%=title %></h2><br/>
+						<h2><%=title%></h2>
+						<br />
 						<jsp:include page="<%=content_file%>" />
 					</div>
 				</div>
@@ -321,7 +365,7 @@ bitte die Nutzungsbedingungen nach.
 									<li>Telefon: +49 02302 189172</li>
 									<li>Fax : +49 02302 189059</li>
 									<li>
-										<a href="#">amg@schule-witten.de</a>
+										<a href="mailto:amg@schule-witten.de">amg@schule-witten.de</a>
 									</li>
 								</ul>
 							</div>
@@ -337,7 +381,18 @@ bitte die Nutzungsbedingungen nach.
 										<a href="https://amg-witten.de/">Website der Schule</a>
 									</li>
 									<li>
-										<a href="https://play.google.com/store/apps/details?id=www.amg_witten.de.apptest">AMG-App</a>
+										<a
+											href="https://play.google.com/store/apps/details?id=www.amg_witten.de.apptest">AMG-App</a>
+									</li>
+								</ul>
+							</div>
+
+							<div class="fusstop-menu">
+								<h3>Webmaster</h3>
+								<ul>
+									<li>Verantwortlich für diese Seite und ihre Inhalte ist</li>
+									<li>
+										<a href="mailto:amgwitten@gmail.com">Adrian Kathagen</a>
 									</li>
 								</ul>
 							</div>
@@ -349,12 +404,16 @@ bitte die Nutzungsbedingungen nach.
 								<h3>Rechtliches</h3>
 								<ul>
 									<li>
-										<a href="https://www.amg-witten.de/kontakt/impressum/">Impressum</a>
+										<a
+											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+					+ "&requestType=impressum"%>>Impressum</a>
 									</li>
 									<li>
-										<a href="https://www.amg-witten.de/kontakt/datenschutz/">Datenschutz</a>
+										<a
+											href=<%="/AMGAppServlet/visual?username=" + benutzername + "&password=" + passwort
+					+ "&requestType=datenschutz"%>>Datenschutz</a>
 									</li>
-									<br/>
+									<br />
 									<li>Fotos &copy;Dr. Martin Krüger</li>
 								</ul>
 							</div>
@@ -393,7 +452,7 @@ bitte die Nutzungsbedingungen nach.
 			<!-- ende wrapper-->
 		</div>
 		<!-- ende container-haupt-->
-		
+
 		<div id="preloader">
 			<img src="images/1.jpg" width="1" height="1">
 			<img src="images/2.jpg" width="1" height="1">

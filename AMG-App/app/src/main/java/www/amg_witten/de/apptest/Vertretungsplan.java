@@ -17,15 +17,14 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
@@ -39,7 +38,6 @@ import java.io.InputStreamReader;
 import java.net.Authenticator;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -57,16 +55,10 @@ public class Vertretungsplan extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Methoden methoden = new Methoden();
+        methoden.makeTheme(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.all_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = findViewById(R.id.main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         Startseite.prefs = getSharedPreferences("Prefs", MODE_PRIVATE);
         klasse = Startseite.prefs.getString("klasse","");
@@ -74,7 +66,6 @@ public class Vertretungsplan extends AppCompatActivity
         Startseite.login = Startseite.prefs.getInt("login",0); //0=Nicht eingeloggt, 1=Schüler, 2=Lehrer, 3=IT-Team
         Startseite.benutzername = Startseite.prefs.getString("loginUsername","");
 
-        Methoden methoden = new Methoden();
         methoden.onCreateFillIn(this,this,1,R.layout.vertretungsplan_activity);
 
         new Thread(new Runnable() {
@@ -104,7 +95,13 @@ public class Vertretungsplan extends AppCompatActivity
                 Looper.prepare();
             }
             catch (Exception ignored){}
-            final ProgressDialog pDialog = new ProgressDialog(thise);
+            final ProgressDialog pDialog;
+            if(Startseite.theme == R.style.DarkTheme){
+                pDialog = new ProgressDialog(thise,R.style.DarkDialog);
+            }
+            else {
+                pDialog = new ProgressDialog(thise);
+            }
 
             thise.runOnUiThread(new Runnable() {
                 @Override
@@ -123,7 +120,6 @@ public class Vertretungsplan extends AppCompatActivity
             Authenticator.setDefault(new MyAuthenticator(thise));
             urlEndings.add("001.htm");
             String main = "http://sus.amg-witten.de/"+date+"/";
-            System.out.println(main);
 
             getAllEndings(main,urlEndings);
 
@@ -210,8 +206,6 @@ public class Vertretungsplan extends AppCompatActivity
                 String match = matcher.group();
                 allMatches.add(match.replace("<td class=\"list\" align=\"center\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\">","").replace("<td class=\"list\" align=\"center\" style=\"background-color: #FFFFFF\" >","").replace("<td class=\"list\">","").replace("</td>","").replace("<b>","").replace("</b>","").replace("<span style=\"color: #800000\">","").replace("<span style=\"color: #0000FF\">","").replace("<span style=\"color: #010101\">","").replace("<span style=\"color: #008040\">","").replace("<span style=\"color: #008000\">","").replace("<span style=\"color: #FF00FF\">","").replace("</span>","").replace("&nbsp;","").replaceFirst(">",""));
             }
-
-            System.out.println(Arrays.deepToString(allMatches.toArray()));
 
             VertretungModel model = new VertretungModel(allMatches.get(0),allMatches.get(1),allMatches.get(2),allMatches.get(3),allMatches.get(4),allMatches.get(5),allMatches.get(6),allMatches.get(7));
 
@@ -659,7 +653,6 @@ public class Vertretungsplan extends AppCompatActivity
                         ((SwipeRefreshLayout)mSectionsPagerAdapter.getCurrentItem(0).getView().findViewById(R.id.vertretungsplan_swipe_refresh)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                             @Override
                             public void onRefresh() {
-                                System.out.println("YES");
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -682,7 +675,6 @@ public class Vertretungsplan extends AppCompatActivity
                         ((SwipeRefreshLayout)mSectionsPagerAdapter.getCurrentItem(1).getView().findViewById(R.id.vertretungsplan_swipe_refresh)).setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                             @Override
                             public void onRefresh() {
-                                System.out.println("YES");
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -692,7 +684,6 @@ public class Vertretungsplan extends AppCompatActivity
                                             @Override
                                             public void run() {
                                                 int page = mViewPager.getCurrentItem();
-                                                System.out.println(page);
                                                 generateLayout(heute,folgetag);
                                                 mViewPager.setCurrentItem(page);
                                             }
